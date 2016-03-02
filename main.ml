@@ -84,13 +84,9 @@ let  main_loop player_1 player_2 =
         let player_1_next = update_player_position player_1_bis and
             player_2_next = update_player_position player_2_bis in
 		
-        if (has_lost player_1_next walls) then begin
+        if (has_lost player_1_next walls || has_lost player_2_next walls ) then begin
             minisleep 3.0; 
             exit 0 
-        end else ();
-		if (has_lost player_2_next walls) then begin 
-            minisleep 3.0; 
-            exit 0; 
         end else ();
 		
         aux player_1_next player_2_next ((player_1_next.x,player_1_next.y)::(player_2_next.x,player_2_next.y)::walls) over ;
