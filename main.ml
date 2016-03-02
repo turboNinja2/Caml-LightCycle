@@ -25,9 +25,9 @@ let box_player_2 = {
 	b2_col = 35700; 
 	b_col=35700};;
 
-let player_1 = {x=((n_tiles-1)/2)*tile_size; y=tile_size ;s_y=speed; s_x=0} ;;
+let player_1 = {x=((n_tiles-1)/2)*tile_size; y=((n_tiles-1)/4)*tile_size ;s_y=speed; s_x=0} ;;
 
-let player_2 = {x=((n_tiles-1)/2)*tile_size; y=(n_tiles-1)*tile_size; s_y= (-1)*speed; s_x=0} ;;
+let player_2 = {x=((n_tiles-1)/2)*tile_size; y=((3*(n_tiles-1))/4)*tile_size; s_y= (-1)*speed; s_x=0} ;;
 
 draw_background n_tiles tile_size;
 	
@@ -54,23 +54,11 @@ let key_pressed_player_2 button_pressed player =
       |_ ->  player)
     in
 
-let is_out player =
-	(player.x > tile_size*n_tiles) || (player.y > tile_size*n_tiles) || (player.x < 0) || (player.y < 0)
-	in
-
-let is_on_wall player walls =
-	List.mem (player.x,player.y) walls
-	in
-
-let has_lost player walls =
-	(is_out player) || (is_on_wall player walls)
-	in
 
 let  main_loop player_1 player_2 =
 
     let rec aux player_1 player_2 walls over =
         draw_players box_player_1 box_player_2 player_1 player_2;
-        
 		
 		let e = Graphics.wait_next_event [Graphics.Poll] in
 		if e.Graphics.keypressed then
@@ -84,7 +72,7 @@ let  main_loop player_1 player_2 =
         let player_1_next = update_player_position player_1_bis and
             player_2_next = update_player_position player_2_bis in
 		
-        if (has_lost player_1_next walls || has_lost player_2_next walls ) then begin
+        if (has_lost player_1_next walls tile_size n_tiles || has_lost player_2_next walls tile_size n_tiles ) then begin
             minisleep 3.0; 
             exit 0 
         end else ();
