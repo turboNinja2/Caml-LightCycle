@@ -55,7 +55,7 @@ let key_pressed_player_2 button_pressed player =
     in
 
 
-let  main_loop player_1 player_2 =
+let main_loop player_1 player_2 =
 
     let rec aux player_1 player_2 walls over =
         draw_players box_player_1 box_player_2 player_1 player_2;
