@@ -3,6 +3,8 @@ type 'a matrix = 'a array array
 let n = 4 ;; 
 let table = Array.make_matrix n n 0;;
 
+Random.init 11
+
 let indexedTraversal
     (add : int -> int -> 'a -> 'b -> 'b)
     (ini : 'b)
@@ -107,20 +109,12 @@ let player_move_verti input_matrix y =
 successful_move ;;
 
 
-
-let player_move_right input_matrix = player_move_horiz input_matrix 1 ;;
-let player_move_left input_matrix  = player_move_horiz input_matrix (-1) ;;
-let player_move_up input_matrix    = player_move_verti input_matrix 1 ;;
-let player_move_down input_matrix  = player_move_verti input_matrix (-1) ;;
-
-Random.init 11;
-
 let key_pressed_player button_pressed table =
     (match button_pressed with
-	  "j" -> player_move_left table
-      |"l" -> player_move_right table 
-      |"i" -> player_move_up table
-      |"k" -> player_move_down table
+	  "j"  -> player_move_horiz table (-1)
+      |"l" -> player_move_horiz table 1
+      |"i" -> player_move_verti table 1
+      |"k" -> player_move_verti table (-1)
       |_ -> ref false)
     in
 
