@@ -6,7 +6,7 @@
 #load "unix.cma";;
 open Graphics;;
 
-    
+	
 let box_player_1 = {
 	w=tile_size;
 	bw=tile_size/2;
